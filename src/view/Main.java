@@ -7,11 +7,11 @@ import controller.ThreadBilheteria;
 public class Main {
 
 	public static void main(String[] args) {
-		int permissoes = 300;
+		int permissoes = 1;
 		Semaphore semaforo = new Semaphore(permissoes);
 		
 		for(int i=0;i<300;i++){
-			ThreadBilheteria threadb = new ThreadBilheteria(semaforo);
+			ThreadBilheteria threadb = new ThreadBilheteria(i,semaforo);
 		}
 	}
 
