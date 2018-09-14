@@ -43,6 +43,12 @@ public class ThreadBilheteria extends Thread {
 	public boolean logar() {
 		int tempo = 0;
 		tempo = random.nextInt(1950) + 50;
+		try {
+			sleep(tempo);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (tempo > 1000) {
 			System.out.println(idThread + "# Timeout");
 			return true;
@@ -55,6 +61,12 @@ public class ThreadBilheteria extends Thread {
 	public boolean comprar() {
 		int tempo = 0;
 		tempo = random.nextInt(2000) + 1000;
+		try {
+			sleep(tempo);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (tempo > 2500) {
 			System.out.println(idThread + "# Final de tempo de sessão");
 			return true;
