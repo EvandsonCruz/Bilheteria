@@ -9,12 +9,11 @@ public class ThreadBilheteria extends Thread {
 	private Semaphore semaforo;
 	private static int bilhetes = 100;
 	private boolean verificaCompra=false;
-	private int idThread;
+	public int idThread;
 
 	public ThreadBilheteria(int idThread, Semaphore semaforo) {
 		this.idThread = idThread;
 		this.semaforo = semaforo;
-		start();
 	}
 
 	public void run() {
@@ -25,7 +24,17 @@ public class ThreadBilheteria extends Thread {
 				if (comprar()) {
 
 				} else {
-					validar();
+					try {
+						semaforo.acquire();
+						validar();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} finally{
+						semaforo.release();
+					}
+					
+					
 				}
 			}
 		}
@@ -58,10 +67,12 @@ public class ThreadBilheteria extends Thread {
 	public void validar() {
 		int qtd;
 		qtd = random.nextInt(3)+1;
-		if(qtd >= bilhetes){
+		if(qtd <= bilhetes){
 			bilhetes-=qtd;
-			System.out.println(idThread + "# Venda de " + qtd + " bilhetes efetuada com sucesso");
-			System.out.println("Bilhetes restantes: " + bilhetes);
+			System.out.println(idThread + "# Venda de " + qtd + " bilhetes efetuada com sucesso. Bilhetes restantes: "+ bilhetes);
+		}
+		else{
+			System.out.println(idThread + "# bilhetes insuficientes");
 		}
 	}
 }

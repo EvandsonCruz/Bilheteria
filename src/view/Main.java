@@ -12,6 +12,7 @@ public class Main {
 		
 		for(int i=0;i<300;i++){
 			ThreadBilheteria threadb = new ThreadBilheteria(i,semaforo);
+			threadb.start();
 		}
 	}
 
